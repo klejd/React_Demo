@@ -1,17 +1,19 @@
 [{
 		"Task": "Update Order Id",
-		"Bussiness_key": {
+		"Status":"Rejected",
+		
 			"key": "order_123",
 			"Id": "001",
 			"Vendor": "VZ"
-		}
+		
+		
 	},
 	{
 		"Task": "Update Vendor Name",
-		"Bussiness_key": {
-			"key": "order_321",
-			"Id": "002",
-			"Vendor": "VZ_2"
-		}
+		"Status":"Rejected",
+		"key": "order_321",
+		"Id": "002",
+		"Vendor": "VZ_2"
+		
 	}
 ]

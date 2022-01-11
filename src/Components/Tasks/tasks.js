@@ -4,18 +4,31 @@ import data from '../../Data/Data.json'
 
 const Tasks = ()=>{
     const [TaskData,SetTaskData] = useState([]);
-    const [updateData,setUpdateData]= useState({Task:"",Bussiness_key:{Id:"",Vendor:"",key:""}});
+    const [updateData,setUpdateData]= useState({Task:"",Id:"",Status:"Approved",Vendor:"",key:""});
     
     const handleUpdate = (a)=>{
         setUpdateData(a);
-       
+      
     }
     const getAll=()=>{
         SetTaskData(data);
     }
     const handleSubmit=(e)=>{
         e.preventDefault();
+        // setUpdateData((state)=>({...updateData,Status:"Approved"}));
+        const data =  updateData;
+        if(data.Id.trim()==="null"||data.Id.trim()===""){
+            data.Status="Rejected"
+        }
+        else{
+        data.Status="Approved"
+        }
+        const temp = TaskData.filter(a=>a.Task!==data.Task);
         
+        console.log(updateData)
+      temp.unshift(updateData);
+    
+        SetTaskData(temp);
        
     }
     useEffect(()=>{
@@ -31,6 +44,7 @@ const Tasks = ()=>{
       <th scope="col">Task</th>
       <th scope="col">Id</th>
       <th scope="col">Bussiness Key</th>
+      <th scope="col">Approved</th>
       <th scope="col">Action</th>
       
     </tr>
@@ -40,8 +54,9 @@ const Tasks = ()=>{
   {TaskData.map(a=>(
        <tr key={a.Task}>
        <td>{a.Task}</td>
-       <td>{a.Bussiness_key.Id}</td>
-       <td>{a.Bussiness_key.key}</td>
+       <td>{a.Id}</td>
+       <td>{a.key}</td>
+       <td>{a.Status}</td>
        <td> <button onClick={()=>handleUpdate(a)} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
          Update
          </button></td>
@@ -64,13 +79,13 @@ const Tasks = ()=>{
                <div className="modal-body">
                <form onSubmit={handleSubmit}>
                   <div className="mb-3">
-                     <label htmlFor="exampleInputEmail1" className="form-label">ID: {updateData.Bussiness_key.Id}</label>  
-                     <input onChange={(e)=>setUpdateData((state)=>({...state,Id:e.target.value}))}  type="text" className="form-control"  id="Id" aria-describedby="emailHelp" />
+                     <label htmlFor="exampleInputEmail1" className="form-label">ID</label>  
+                     <input defaultValue={updateData.Id} onChange={(e)=>setUpdateData((state)=>({...state,Id:e.target.value}))}  type="text" className="form-control"  id="Id" aria-describedby="emailHelp" />
                    
                   </div>
                   <div className="mb-3">
                      <label htmlFor="exampleInputPassword1" className="form-label">Vendor Name</label>
-                     <input disabled type="text" value={updateData.Bussiness_key.Vendor} className="form-control" id="Vendor" />
+                     <input defaultValue={updateData.Vendor} onChange={(e)=>setUpdateData((state)=>({...state,Vendor:e.target.value}))} type="text"  className="form-control" id="Vendor" />
                   </div>
                   <button type="submit" className="btn btn-primary">Update</button>
                   <button type="button" className="btn btn-warning float-xl-end" data-bs-dismiss="modal">Close</button>

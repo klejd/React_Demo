@@ -1,12 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 const Header = () => {
-    const activeStyle = {color:"#F15B2A"};
+    // const activeStyle = {color:"#777777"};
 
     return ( 
-    <nav>
-        <NavLink to="/" activeStyle={activeStyle} exact>Orders</NavLink>{" | "}
-        <NavLink to="/tasks" activeStyle={activeStyle} >Tasks                                                                                                                                                                          </NavLink>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+        <NavLink className="navbar-brand text-info font-weight-bolder" to="/" style={{marginLeft:"20px"}}  exact>Orders</NavLink>{" | "}
+        <NavLink className="navbar-brand text-info font-weight-bolder" to="/tasks"  >Tasks                                                                                                                                                                          </NavLink>
     </nav>
      );
 }
